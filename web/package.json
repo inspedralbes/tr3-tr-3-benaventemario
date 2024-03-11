@@ -1,0 +1,11 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "Aquesta carpeta ha de contenir l'aplicació, tot el que s'hagi de posar a la carpeta \"public_html\" del site.\r Típicament, els següents fitxers organitzats en les carpetes corresponents:\r  -  html\r  -  php\r  -  png,jpg ...\r  -  js\r  -  css\r  -",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
