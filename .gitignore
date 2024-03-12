@@ -1,0 +1,22 @@
+# Fitxers de Nuxt dev/build
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Dependéncies de node
+node_modules
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+
+# Envs
+.env
+.env.*
+!.env.example
