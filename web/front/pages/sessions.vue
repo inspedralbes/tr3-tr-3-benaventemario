@@ -5,5 +5,10 @@
 </template>
 
 <script setup>
-  const {pending, data: sessions}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio');
+  const {pending, data: sessions}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio',{
+    method:'GET',
+    onResponse(){
+      console.log(sessions);
+    }
+  });
 </script>
