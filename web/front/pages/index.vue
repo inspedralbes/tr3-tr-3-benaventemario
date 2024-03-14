@@ -4,3 +4,8 @@
     <demo/>
     </div>
 </template>
+
+
+<script setup>
+  unescape('');
+</script>
