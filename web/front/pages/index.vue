@@ -3,11 +3,12 @@
     <header>
     <nav>
       <ul>
-        <li><NuxtLink to="/seients">Sessió d'avui</NuxtLink></li>
-        <li><NuxtLink to="/sessions">Próximes sessions</NuxtLink></li>
+        <li><NuxtLink to="/">Home</NuxtLink></li>
       </ul>
     </nav>
   </header>
+  <button><NuxtLink to="/seients">Sessió d'avui</NuxtLink></button>
+  <button><NuxtLink to="/sessions">Próximes sessions</NuxtLink></button>
 </template>
 
 
