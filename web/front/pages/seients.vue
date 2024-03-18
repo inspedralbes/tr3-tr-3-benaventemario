@@ -1,20 +1,19 @@
 <template>
-    <div>
+    <div v-if="pending">
+        <h1>Revisant butaques...</h1>
+      </div>
+      <div v-else>
 
     </div>
 </template>
 
 <script>
-    export default {
-        methods: {
-            sessioAComprar(){
-
-            }
-        },
-        mounted() {
-            this();
-        },
+    const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
+    method:'GET',
+    onResponse(){
+      console.log(sessio.records);
     }
+  });
 </script>
 
 <style lang="scss" scoped>
