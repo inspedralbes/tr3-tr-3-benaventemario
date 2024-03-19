@@ -41,22 +41,20 @@
 
   function imprimirEntrades() {
     const entradesPinia='';//Get butacas seleccionadas por pinia here
-    let entrades=[]; 
-    for (let i = 0; i <entradasPinia.length ; i++) {
-        const cont = sessio.records.Entrada[i];
+    for (let i = 0; i <entradas.length ; i++) {
+        const cont = entradesPinia[i];
         const entrada ={
-            id_sessio: entradasPinia.sessio,
-            id_butaca: entradasPinia.butaca,
-            tipus_butaca: entradasPinia.tipus,
-            preu: entradasPinia.preu,
-            data_compra: entradasPinia.compra
+            id_sessio: cont.sessio,
+            id_butaca: cont.butaca,
+            tipus_butaca: cont.tipus,
+            preu: cont.preu,
+            data_compra: cont.compra
         };
-        entrades.push(entrada);
+        const response = fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
+            method: "POST",
+            body:JSON.stringify(entrada)
+        });
     }
-    const response = fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
-        method: "POST",
-        body:JSON.stringify(entrades)
-    });
   }
   
 
