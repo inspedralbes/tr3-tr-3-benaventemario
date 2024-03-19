@@ -33,7 +33,8 @@ CREATE TABLE `Entrada` (
   `id_butaca` varchar(5) DEFAULT NULL,
   `tipus_butaca` varchar(255) DEFAULT NULL,
   `preu` int(11) DEFAULT NULL,
-  `data_compra` timestamp NOT NULL
+  `data_compra` timestamp NOT NULL,
+  `correu` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

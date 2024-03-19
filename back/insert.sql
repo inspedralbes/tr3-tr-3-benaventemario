@@ -4,9 +4,9 @@
 --
 
 INSERT INTO `Entrada` (`id`, `id_sessio`, `id_butaca`, `tipus_butaca`, `preu`, `data_compra`) VALUES
-(1, 1, '5_8', 'estandar', 6, '2024-03-18 09:35:02'),
-(2, 1, '1_4', 'vip', 8, '2024-03-18 09:35:02'),
-(3, 2, '5_8', 'estandar', 6, '2024-03-18 09:35:02');
+(1, 1, '5_8', 'estandar', 6, '2024-03-18 09:35:02', 'marbenalc@inspedralbes.cat'),
+(2, 1, '1_4', 'vip', 8, '2024-03-18 09:35:02', 'marbenalc@inspedralbes.cat'),
+(3, 2, '5_8', 'estandar', 6, '2024-03-18 09:35:02', NULL);
 
 -- --------------------------------------------------------
 
