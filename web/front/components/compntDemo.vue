@@ -1,3 +1,3 @@
 <template>
-    hola soy un compentne
+    hola soy un compentne <br>
     </template>
