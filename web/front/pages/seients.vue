@@ -3,7 +3,7 @@
         <h1>Revisant butaques...</h1>
     </div>
     <div v-else>
-
+        
     </div>
 </template>
 
@@ -18,7 +18,7 @@
                 fila: parseInt(butaca.id_butaca.charAt(0)),
                 columna: parseInt(butaca.id_butaca.charAt(2))
             };
-            
+            butaquesOcupades.push(butacaOpcupada);
         }
     }
   });
