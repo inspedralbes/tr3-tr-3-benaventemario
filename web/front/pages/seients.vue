@@ -8,8 +8,9 @@
         <div class="sala">
             <div class="fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
-                    <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button>
+                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} 
+                    <button :class="{ vip: esVip && fil===files-1}"></button>-->
+                    <img src="../assets/img/1683758.png" alt="{{ `butaca ${col} de la fila ${files-fil+1}` }}" srcset="">
                 </template>
             </div>
         </div>
@@ -61,5 +62,4 @@
 </script>
 
 <style lang="scss" scoped>
-
 </style>
