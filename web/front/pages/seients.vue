@@ -3,15 +3,15 @@
     <div v-if="pending">
         <h1>Revisant butaques...</h1>
     </div>
+    
     <div v-else>
-        
-        <!-- <div v-for="fila in files">
-            <button>{{fila}}</button>
-        </div> -->
-        
-        <div v-for="fila in files" :key="fila">
-            {{ console.log(fila)}}
-            <button>{{files-fila+1}}</button>
+        <div class="sala" v-for="fil in files" :key="fil">
+            <div class="fila">
+                <template v-for="col in columnes">
+                <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
+                <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button>
+                </template>
+            </div>
         </div>
     </div>
 
