@@ -27,15 +27,16 @@ SET time_zone = "+00:00";
 -- Estructura de la taula `Entrada`
 --
 
+
 CREATE TABLE `Entrada` (
-  `id` int(11) NOT NULL,
-  `id_sessio` int(11) DEFAULT NULL,
-  `id_butaca` varchar(5) DEFAULT NULL,
+  `id_sessio` int(11) NOT NULL,
+  `id_butaca` varchar(5) NOT NULL,
   `tipus_butaca` varchar(255) DEFAULT NULL,
   `preu` int(11) DEFAULT NULL,
   `data_compra` timestamp NOT NULL,
   `correu` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- --------------------------------------------------------
 
@@ -74,8 +75,8 @@ CREATE TABLE `Sessio` (
 -- Índexs per a la taula `Entrada`
 --
 ALTER TABLE `Entrada`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_sessio` (`id_sessio`);
+  ADD PRIMARY KEY (`id_sessio`,`id_butaca`);
+COMMIT;
 
 --
 -- Índexs per a la taula `Pelicula`
