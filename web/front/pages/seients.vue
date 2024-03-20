@@ -1,5 +1,5 @@
 <template>
-    entra en template
+    {{ files }}
     <div v-if="pending">
         <h1>Revisant butaques...</h1>
     </div>
@@ -8,9 +8,9 @@
         <div class="sala">
             <div class="fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} 
-                    <button :class="{ vip: esVip && fil===files-1}"></button>-->
-                    <img src="../assets/img/1683758.png" alt="{{ `butaca ${col} de la fila ${files-fil+1}` }}" srcset="">
+                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
+                    <!-- <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button> -->
+                    <img src="../assets/img/1683758.png" alt="butaca {{col}} de la fila {{files-fil+1}}" srcset="">
                 </template>
             </div>
         </div>
@@ -20,7 +20,7 @@
     <!-- A PARTIR DE AQUI EL SCRIPT ES POST-ROTURA -->
 </template>
 
-<script>
+<script setup>
     const files=5;
     const columnes=8;
     let butaquesOcupades=[]; 
@@ -63,3 +63,33 @@
 
 <style lang="scss" scoped>
 </style>
+
+<!-- <script>
+export default {
+    data() {
+        return {
+            files: 5,
+            columnes: 8,
+            butaquesOcupades:[],
+            
+        }
+    },
+    computed: {
+        displayProfile() {
+         return `My name is ${this.name} and i am ${this.age}`;
+        }
+    },
+    methods: {
+         verifyUser() {
+         if(this.age < 18){
+         this.aboveAge = false
+        } else {
+        this.aboveAge = true    
+           }
+        },   
+    },
+    mounted() {
+        console.log('Application mounted');
+    },
+}
+</script> -->
