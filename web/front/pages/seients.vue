@@ -8,8 +8,8 @@
         <div class="sala">
             <div class="fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
-                <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button>
+                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
+                    <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button>
                 </template>
             </div>
         </div>
