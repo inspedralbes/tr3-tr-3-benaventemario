@@ -6,24 +6,24 @@
 
     <div v-else>
         <div class="sala">
-            <div class="fila" v-for="fil in files" :key="fil">
+            <div class="sala--fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
                     <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
                     <!-- <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button> -->
-                    <img src="../assets/img/1683758.png" alt="butaca {{col}} de la fila {{files-fil+1}}" srcset="">
+                    <img @click="afegirEntrada()" class="sala--butaca" :class="{ 'sala--butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
                 </template>
             </div>
+            <button @click="imprimirEntrades()" class="sala--btn">COMPRAR</button>
         </div>
     </div>
-
-
-    <!-- A PARTIR DE AQUI EL SCRIPT ES POST-ROTURA -->
 </template>
 
 <script setup>
     const files=5;
     const columnes=8;
-    let butaquesOcupades=[]; 
+    const esVip=false;
+    const teDescompte=false;
+    const butaquesOcupades=[]; 
     const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
     method:'GET',
     onResponse(){
@@ -35,27 +35,32 @@
             };
             butaquesOcupades.push(butacaOcupada);
         }
+        if (sessio.records.vip==0) {
+            esVip=true;
+        }
+        if (sessio.records.descompte_espect==0) {
+            teDescompte=true;
+        }
     }
   });
 
-  //A PARTIR DE AQUI EL SCRIPT ES POST-ROTURA
-
   function imprimirEntrades() {
-    const entradesPinia='';//Get butacas seleccionadas por pinia here
-    for (let i = 0; i <entradas.length ; i++) {
-        const cont = entradesPinia[i];
-        const entrada ={
-            id_sessio: cont.sessio,
-            id_butaca: cont.butaca,
-            tipus_butaca: cont.tipus,
-            preu: cont.preu,
-            data_compra: cont.compra
-        };
-        const response = fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
-            method: "POST",
-            body:JSON.stringify(entrada)
-        });
-    }
+    console.log('');
+    // const entradesPinia='';//Get butacas seleccionadas por pinia here
+    // for (let i = 0; i <entradas.length ; i++) {
+    //     const cont = entradesPinia[i];
+    //     const entrada ={
+    //         id_sessio: cont.sessio,
+    //         id_butaca: cont.butaca,
+    //         tipus_butaca: cont.tipus,
+    //         preu: cont.preu,
+    //         data_compra: cont.compra
+    //     };
+    //     const response = fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
+    //         method: "POST",
+    //         body:JSON.stringify(entrada)
+    //     });
+    // }
   }
   
 

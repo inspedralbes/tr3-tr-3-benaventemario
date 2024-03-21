@@ -1,12 +1,17 @@
-.fila{
+.sala--fila{
     display: flex;
-};
-
-img.butaca{
+}
+ 
+.sala--butaca{
+    content:url("../../assets/img/1683758.png");
     width: 8vw;
     height: 8vw;
     min-height: 13px;
     min-width: 13px;
     max-height: 120px;
     max-width: 120px
-};
+}
+
+.sala--butaca_vip{
+    content:url("../../assets/img/1683809.png");
+}
