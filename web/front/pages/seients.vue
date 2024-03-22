@@ -8,7 +8,7 @@
         <div class="sala">
             <div class="sala__fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <img @click="afegirEntrada()" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
+                    <img @click="imprimirEntrades(fil, col)" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
                 </template>
             </div>
             <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
@@ -22,6 +22,7 @@
     const esVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
+    const date = new Date();
     const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
     method:'GET',
     onResponse(){
@@ -39,11 +40,12 @@
         if (sessio.records.descompte_espect==0) {
             teDescompte=true;
         }
+        console.log(sessio);
     }
   });
 
-  function imprimirEntrades() {
-    console.log('');
+  function imprimirEntrades(fil,col) {
+    console.log('Imprimiendo entrada...');
     // const entradesPinia='';//Get butacas seleccionadas por pinia here
     // for (let i = 0; i <entradas.length ; i++) {
     //     const cont = entradesPinia[i];
@@ -59,6 +61,20 @@
     //         body:JSON.stringify(entrada)
     //     });
     // }
+
+
+    const entrada ={
+        id_sessio: sessio.records.id,
+        id_butaca: `${fil}_${col}`,
+        tipus_butaca: estandard,
+        preu: sessio.records.preu,
+        data_compra: ''
+    };
+    const response = fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
+        method: "POST",
+        body:JSON.stringify(entrada)
+    });
+    console.log(entrada);
   }
   
 
@@ -66,33 +82,3 @@
 
 <style lang="scss" scoped>
 </style>
-
-<!__ <script>
-export default {
-    data() {
-        return {
-            files: 5,
-            columnes: 8,
-            butaquesOcupades:[],
-            
-        }
-    },
-    computed: {
-        displayProfile() {
-         return `My name is ${this.name} and i am ${this.age}`;
-        }
-    },
-    methods: {
-         verifyUser() {
-         if(this.age < 18){
-         this.aboveAge = false
-        } else {
-        this.aboveAge = true    
-           }
-        },   
-    },
-    mounted() {
-        console.log('Application mounted');
-    },
-}
-</script> __>
