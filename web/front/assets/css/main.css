@@ -1,8 +1,8 @@
-.sala--fila{
+.sala__fila{
     display: flex;
 }
  
-.sala--butaca{
+.sala__butaca{
     content:url("../../assets/img/1683758.png");
     width: 8vw;
     height: 8vw;
@@ -12,6 +12,6 @@
     max-width: 120px
 }
 
-.sala--butaca_vip{
+.sala__butaca_vip{
     content:url("../../assets/img/1683809.png");
 }

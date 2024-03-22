@@ -6,14 +6,12 @@
 
     <div v-else>
         <div class="sala">
-            <div class="sala--fila" v-for="fil in files" :key="fil">
+            <div class="sala__fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <!-- {{ console.log(`${files-fil+1}_${col}`)}} -->
-                    <!-- <button :class="{ vip: esVip && fil===files-1}">{{`${files-fil+1}_${col}`}}</button> -->
-                    <img @click="afegirEntrada()" class="sala--butaca" :class="{ 'sala--butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
+                    <img @click="afegirEntrada()" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
                 </template>
             </div>
-            <button @click="imprimirEntrades()" class="sala--btn">COMPRAR</button>
+            <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
         </div>
     </div>
 </template>
@@ -69,7 +67,7 @@
 <style lang="scss" scoped>
 </style>
 
-<!-- <script>
+<!__ <script>
 export default {
     data() {
         return {
@@ -97,4 +95,4 @@ export default {
         console.log('Application mounted');
     },
 }
-</script> -->
+</script> __>
