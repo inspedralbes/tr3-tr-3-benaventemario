@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 export const useSessioStore = defineStore('sessio', {
     state: () => ({
         sessio:{
-            id: false
+            id: 1
         }
     }),
     getters: {

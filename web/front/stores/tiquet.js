@@ -5,9 +5,9 @@ import { defineStore } from 'pinia'
 export const useTiquetStore = defineStore('tiquet', {
     state: () => ({
         tiquet:{
-            sessio: '1',
+            sessio: 1,
             seients: [],
-            preuSessio:'6'
+            preuSessio:6
         }
     }),
     getters: {
@@ -16,14 +16,14 @@ export const useTiquetStore = defineStore('tiquet', {
         }
     },
     actions: {
-        afegirButaca(fil, col) {
+        afegirButaca(fil, col, nouTipus) {
             const seient ={
                 id:`${fil}_${col}`,
-                tipus: 'estandard',
+                tipus: nouTipus,
 
             }
-            console.log(seient);
             this.tiquet.seients.push(seient)
+            console.log(this.tiquet);
         }
     }
 })

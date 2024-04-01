@@ -8,7 +8,7 @@
         <div class="sala">
             <div class="sala__fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <img @click="tiquetStore.afegirButaca((files-fil+1), col)" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
+                    <img @click="tiquetStore.afegirButaca((files-fil+1), col, 'estandard')" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
                 </template>
             </div>
             <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
@@ -53,18 +53,19 @@
         console.log('Imprimiendo entrada...');
         //const entradesPinia=tiquetStore.mostrarTiquet()
         //const entradesPinia=computed(()=>tiquetStore.mostrarTiquet());
-        const entradesPinia=tiquetStore.mostrarTiquet()
+        const entradesPinia=tiquetStore.mostrarTiquet
         //Get butacas seleccionadas por pinia here
         console.log(entradesPinia);
         for (let i = 0; i <entradesPinia.seients.length ; i++) {
             const seient = entradesPinia.seients[i];
+            const preuFinal=(seient.tipus!="estandard"? entradesPinia.preuSessio+2 : entradesPinia.preuSessio)
             const entrada ={
                 id_sessio: entradesPinia.sessio,
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
-                preu: entradesPinia.preu,
+                preu: preuFinal,
                 data_compra: '',
-                correu:usuariStore.mostrarCorreu()
+                correu:usuariStore.mostrarCorreu
             };
             console.log(entrada);
             const response =$fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
