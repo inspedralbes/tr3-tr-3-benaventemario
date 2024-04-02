@@ -21,13 +21,12 @@
     const tiquetStore=useTiquetStore();
     import { useUsuariStore } from "~/stores/usuari";
     const usuariStore=useUsuariStore();
-
+    
     const files=5;
     const columnes=8;
     const esVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const date = new Date();
     const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
         method:'GET',
         onResponse(){
@@ -49,11 +48,17 @@
         }
     });
     function mostrarColor(butaca) {
-        return seientRoig
+        color='~/assets/img/seientRoig.png'
+        return color
+    }
+
+    function afegirZeros(num) {
+        return num.toString().padStart(2, "0");
     }
 
     function imprimirEntrades() {
         console.log('Imprimiendo entrada...');
+        const dia = new Date();
         //const entradesPinia=tiquetStore.mostrarTiquet()
         //const entradesPinia=computed(()=>tiquetStore.mostrarTiquet());
         const entradesPinia=tiquetStore.mostrarTiquet
@@ -67,7 +72,7 @@
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
                 preu: preuFinal,
-                data_compra: '',
+                data_compra: `${dia.getFullYear()}-${afegirZeros(dia.getMonth()+1)}-${afegirZeros(dia.getDate())} ${afegirZeros(dia.getHours())}:${afegirZeros(dia.getMinutes())}:${afegirZeros(dia.getSeconds())}`,
                 correu:usuariStore.mostrarCorreu
             };
             console.log(entrada);

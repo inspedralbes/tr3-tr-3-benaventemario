@@ -1,3 +1,5 @@
+el color de la butaca desactivada es #ADADAD
+
 {
     "code": 9999,
     "message": "Tqdev\\PhpCrudApi\\Database\\ColumnsBuilder::quoteColumnName(): Argument #1 ($column) must be of type Tqdev\\PhpCrudApi\\Column\\Reflection\\ReflectedColumn, null given, called in \/home\/a21marbenalc\/web\/tr3marbenalc.daw.inspedralbes.cat\/public_html\/back\/api.php on line 5687"
