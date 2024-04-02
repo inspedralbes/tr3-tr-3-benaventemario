@@ -6,7 +6,7 @@
       </div>
       <div v-else>
         <div v-for="item in sessions.records">
-          <h1>Sessió {{item.id}} amb peli {{item.id_peli.titol}}</h1>
+          <FitxaSessio :sessio="item"/>
         </div>
       </div>
     </section>

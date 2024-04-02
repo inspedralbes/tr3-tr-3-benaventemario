@@ -8,7 +8,9 @@
         <div class="sala">
             <div class="sala__fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <img @click="tiquetStore.afegirButaca((files-fil+1), col, 'estandard')" class="sala__butaca" :class="{ 'sala__butaca_vip': esVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
+                    <!-- https://vuejs.org/guide/components/props.html#prop-passing-details
+                        <FitxaButaca :fil="(files-fil+1)" :col="col" :tipus="teVip && fil===files-1? 'vip' : ('expresion de mostrar standard')"/> -->
+                    <img @click="tiquetStore.afegirButaca((files-fil+1), col, 'estandard')" class="sala__butaca" :class="{ 'sala__butaca_vip': teVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
                 </template>
             </div>
             <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
@@ -24,7 +26,7 @@
     
     const files=5;
     const columnes=8;
-    const esVip=false;
+    const teVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
     const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
@@ -39,7 +41,7 @@
                 butaquesOcupades.push(butacaOcupada);
             }
             if (sessio.records.vip==0) {
-                esVip=true;
+                teVip=true;
             }
             if (sessio.records.descompte_espect==0) {
                 teDescompte=true;
@@ -59,10 +61,8 @@
     function imprimirEntrades() {
         console.log('Imprimiendo entrada...');
         const dia = new Date();
-        //const entradesPinia=tiquetStore.mostrarTiquet()
-        //const entradesPinia=computed(()=>tiquetStore.mostrarTiquet());
+        //Llegir butaques seleccionades per pinia
         const entradesPinia=tiquetStore.mostrarTiquet
-        //Get butacas seleccionadas por pinia here
         console.log(entradesPinia);
         for (let i = 0; i <entradesPinia.seients.length ; i++) {
             const seient = entradesPinia.seients[i];
