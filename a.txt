@@ -1,0 +1,13 @@
+{
+    "code": 9999,
+    "message": "Tqdev\\PhpCrudApi\\Database\\ColumnsBuilder::quoteColumnName(): Argument #1 ($column) must be of type Tqdev\\PhpCrudApi\\Column\\Reflection\\ReflectedColumn, null given, called in \/home\/a21marbenalc\/web\/tr3marbenalc.daw.inspedralbes.cat\/public_html\/back\/api.php on line 5687"
+}
+
+
+ES PORQUE NO SOPORTA  CLAVES COMPUESTAS, HAY QUE TIRAR LA FOREIGN PRIMARY Y SUMARLA AL FINAL DEL ID_BUTACA
+TAL QUE ASI:
+
+(fila)_(columna)_s(id_sessio) 
+
+ESTO SIGNIFICA QUE PARA PODER MANTENER EL FETCH JOIN DE LA PAGINA DE SEIENTS ES NECESARIO TENER EL ID DE SESION
+EN DOS INSTANCIAS, LA FORANA Y LA PRIMARY

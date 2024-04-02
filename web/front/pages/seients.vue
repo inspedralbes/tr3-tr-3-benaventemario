@@ -48,6 +48,9 @@
             console.log(sessio);
         }
     });
+    function mostrarColor(butaca) {
+        return seientRoig
+    }
 
     function imprimirEntrades() {
         console.log('Imprimiendo entrada...');
