@@ -1,5 +1,8 @@
 <template>
-    <img @click="storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)" :src="color" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <img v-if="butaca.ocupada===true" src="" class="sala__butaca sala__butaca_ocupada" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}, ocupada`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===true" src="~/assets/img/seientSeleccionat.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===false && butaca.tipus!='vip' && butaca.ocupada===false" src="~/assets/img/seientRoig.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.tipus=='vip' && butaca.seleccionada===false && butaca.ocupada===false" src="~/assets/img/seientVip.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
 </template>
 
 <script setup>
@@ -7,23 +10,29 @@
     const storeTiquet=useTiquetStore();
 
     const {butaca}=defineProps(['butaca'])
-    const color='~/assets/img/seientRoig.png'
-
-    mostrarColor();
-
+    
 
     function mostrarColor() {
+        console.log(`mostrando color butaca ${butaca.columna} de la fila ${butaca.fila}`);
         if (butaca.ocupada===true) {
-            color='~/assets/img/seientOcupat.png';
+            return'../assets/img/seientOcupat.png';
         } else {
             if (butaca.tipus=='vip') {
-                color='~/assets/img/seientVip.png';
+                return'~/assets/img/seientVip.png';
             }else{
                 if (butaca.seleccionada===true) {
-                    color='~/assets/img/seientSeleccionat.png';
+                    return'../assets/img/seientSeleccionat.png';
+                }else{
+                    return'../assets/img/seientRoig.png'
                 }
             }
         }
+    }
+
+    function butacaSeleccionada(){
+        storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)
+        butaca.seleccionada=true
+        console.log(butaca.seleccionada);
     }
 </script>
 

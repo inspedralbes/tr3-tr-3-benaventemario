@@ -18,7 +18,6 @@
     const {pending, data: sessions}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio?join=Pelicula`,{
         method:'GET',
         onResponse(){
-            console.log(sessions.records);
         }
     });
 </script>

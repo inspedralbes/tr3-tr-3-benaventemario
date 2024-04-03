@@ -6,9 +6,9 @@
     <div v-else>
         <div class="sala">
             <div class="sala__fila" v-for="fil in files" :key="fil">
-                <template v-for="col in columnes">
+                <span v-for="col in columnes">
                     <FitxaButaca :butaca="actualitzarFitxa(fil, col)" />
-                </template>
+                </span>
             </div>
             <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
         </div>
@@ -23,19 +23,13 @@
     const storeTiquet=useTiquetStore();
     const storeUsuari=useUsuariStore();
 
-    const files=5;
-    const columnes=8;
-    const fitxaButaca = {
-        fila: files,
-        columna: columnes,
-        tipus: '',
-        ocupada: false,
-        seleccionada: false
-    }
+    const files=10;
+    const columnes=12;
+   
     const teVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${1/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
+    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${3/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
         method:'GET',
         onResponse(){
             for (let i = 0; i < sessio.records.Entrada.length; i++) {
@@ -57,6 +51,15 @@
     });
 
     function actualitzarFitxa(fil, col) {
+
+        const fitxaButaca = {
+            fila: files,
+            columna: columnes,
+            tipus: '',
+            ocupada: false,
+            seleccionada: false
+        }
+
         fitxaButaca.fila= files-fil+1,
         fitxaButaca.columna= col,
         fitxaButaca.tipus= teVip && fil===files-1? 'vip' : 'estandard',

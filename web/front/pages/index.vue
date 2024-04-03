@@ -4,7 +4,6 @@
   <button><NuxtLink to="/sessions">Próximes sessions</NuxtLink></button>
 </template>
 
-
 <script setup>
   // unescape('');
 </script>
