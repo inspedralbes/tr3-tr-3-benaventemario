@@ -1,29 +1,37 @@
 <template>
-    <img v-if="butaca.ocupada===true" src="" class="sala__butaca sala__butaca_ocupada" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}, ocupada`" srcset="">
-    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===true" src="~/assets/img/seientSeleccionat.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
-    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===false && butaca.tipus!='vip' && butaca.ocupada===false" src="~/assets/img/seientRoig.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
-    <img @click="butacaSeleccionada()" v-if="butaca.tipus=='vip' && butaca.seleccionada===false && butaca.ocupada===false" src="~/assets/img/seientVip.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <!-- <img v-if="butaca.ocupada===true" src="" class="sala__butaca sala__butaca_ocupada" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}, ocupada`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===true" src="/img/seientSeleccionat.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.seleccionada===false && butaca.tipus!='vip' && butaca.ocupada===false" src="/img/seientRoig.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
+    <img @click="butacaSeleccionada()" v-if="butaca.tipus=='vip' && butaca.seleccionada===false && butaca.ocupada===false" src="/img/seientVip.png" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset=""> -->
+    <img @click="butacaSeleccionada()" :src="estat" class="sala__butaca" :alt="`Butaca ${butaca.columna} de la fila ${butaca.fila}`" srcset="">
 </template>
 
 <script setup>
     import { useTiquetStore } from "~/stores/tiquet";
     const storeTiquet=useTiquetStore();
-
+    
     const {butaca}=defineProps(['butaca'])
     
+    
+    import { ref } from 'vue';
+    const estat=ref(definirEstat());
 
-    function mostrarColor() {
+    // estat.value = definirEstat();
+
+    
+
+    function definirEstat() {
         console.log(`mostrando color butaca ${butaca.columna} de la fila ${butaca.fila}`);
-        if (butaca.ocupada===true) {
-            return'../assets/img/seientOcupat.png';
+        if (butaca.ocupada==true) {
+            return'/img/seientOcupat.png';
         } else {
             if (butaca.tipus=='vip') {
-                return'~/assets/img/seientVip.png';
+                return'/img/seientVip.png';
             }else{
-                if (butaca.seleccionada===true) {
-                    return'../assets/img/seientSeleccionat.png';
+                if (butaca.seleccionada==true) {
+                    return'/img/seientSeleccionat.png';
                 }else{
-                    return'../assets/img/seientRoig.png'
+                    return'/img/seientRoig.png'
                 }
             }
         }
@@ -31,7 +39,8 @@
 
     function butacaSeleccionada(){
         storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)
-        butaca.seleccionada=true
+        butaca.seleccionada=!butaca.seleccionada
+        estat.value = definirEstat();
         console.log(butaca.seleccionada);
     }
 </script>

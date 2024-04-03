@@ -11,7 +11,7 @@ export const useMetaStore = defineStore('meta', {
             return this.backUrl
         },
         mostrarUrlImprimirEntrades() {
-            return this.backUrl
+            return this.entradesUrl
         }
     },
 })

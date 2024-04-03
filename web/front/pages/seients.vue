@@ -1,4 +1,10 @@
 <template>
+    <!-- 
+        https://stackoverflow.com/questions/75043116/nuxt-3-how-to-use-dynamic-variable-for-img-src
+        https://github.com/nuxt/nuxt/issues/14766
+        https://www.lichter.io/articles/nuxt3-vue3-dynamic-images/
+
+     -->
     <div v-if="pending">
         <h1>Revisant butaques...</h1>
     </div>
