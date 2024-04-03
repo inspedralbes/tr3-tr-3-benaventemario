@@ -83,6 +83,7 @@
     }
 
     function imprimirEntrades() {
+        const entrades=[];
         console.log('Imprimiendo entrada...');
         const dia = new Date();
         //Llegir butaques seleccionades per pinia
@@ -100,11 +101,12 @@
                 correu:storeUsuari.mostrarCorreu
             };
             console.log(entrada);
-            $fetch(`${storeMeta.mostrarBackUrl}/Entrada`, {
-                method: "POST",
-                body:JSON.stringify(entrada)
-            });
+            entrades.push(entrada);
         }
+        $fetch(`${storeMeta.mostrarUrlImprimirEntrades}`, {
+            method: "POST",
+            body:JSON.stringify(entrades)
+        });
         //     sintaxis de fetch de enviament(abajo)
         // 
 
