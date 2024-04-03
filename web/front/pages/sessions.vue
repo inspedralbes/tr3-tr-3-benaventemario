@@ -1,6 +1,5 @@
 <template>
     <section>
-      <p>This page will be displayed at the /sessions route.</p>
       <div v-if="pending">
         Carregant Sessions...
       </div>
@@ -13,10 +12,13 @@
 </template>
 
 <script setup>
-  const {pending, data: sessions}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio?join=Pelicula',{
-    method:'GET',
-    onResponse(){
-      console.log(sessions.records);
-    }
-  });
+    import { useMetaStore } from "~/stores/meta";
+    const storeMeta=useMetaStore();
+
+    const {pending, data: sessions}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio?join=Pelicula`,{
+        method:'GET',
+        onResponse(){
+            console.log(sessions.records);
+        }
+    });
 </script>

@@ -16,8 +16,10 @@
 </template>
 
 <script setup>
+    import { useMetaStore } from "~/stores/meta";
     import { useTiquetStore } from "~/stores/tiquet";
     import { useUsuariStore } from "~/stores/usuari";
+    const storeMeta=useMetaStore();
     const storeTiquet=useTiquetStore();
     const storeUsuari=useUsuariStore();
 
@@ -33,7 +35,7 @@
     const teVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const {pending, data: sessio}=useLazyFetch('http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Sessio/1?join=Entrada',{
+    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${1/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
         method:'GET',
         onResponse(){
             for (let i = 0; i < sessio.records.Entrada.length; i++) {
@@ -95,7 +97,7 @@
                 correu:storeUsuari.mostrarCorreu
             };
             console.log(entrada);
-            $fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
+            $fetch(`${storeMeta.mostrarBackUrl}/Entrada`, {
                 method: "POST",
                 body:JSON.stringify(entrada)
             });

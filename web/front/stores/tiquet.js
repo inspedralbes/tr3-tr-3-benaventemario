@@ -1,5 +1,5 @@
 //Tindrá un array amb les butaques i la seva sessió,
-// i una funció que retornará true si hi ha una butaca concreta al array o no
+// una funció getter i una altre que será adder
 import { defineStore } from 'pinia'
 
 export const useTiquetStore = defineStore('tiquet', {
