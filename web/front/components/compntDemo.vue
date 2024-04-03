@@ -1,3 +1,13 @@
 <template>
-    hola soy un compentne <br>
+    <div>
+        hola soy un compentne <br>
+    </div>
 </template>
+
+<script setup>
+
+</script>
+
+<style scoped>
+
+</style>

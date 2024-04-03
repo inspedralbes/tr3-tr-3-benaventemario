@@ -1,5 +1,4 @@
 <template>
-    {{ files }}
     <div v-if="pending">
         <h1>Revisant butaques...</h1>
     </div>
@@ -8,9 +7,7 @@
         <div class="sala">
             <div class="sala__fila" v-for="fil in files" :key="fil">
                 <template v-for="col in columnes">
-                    <!-- https://vuejs.org/guide/components/props.html#prop-passing-details
-                        <FitxaButaca :fil="(files-fil+1)" :col="col" :tipus="teVip && fil===files-1? 'vip' : ('expresion de mostrar standard')"/> -->
-                    <img @click="tiquetStore.afegirButaca((files-fil+1), col, 'estandard')" class="sala__butaca" :class="{ 'sala__butaca_vip': teVip && fil===files-1}" :alt="`Butaca {${col}} de la fila {${files-fil+1}}`" srcset="">
+                    <FitxaButaca :butaca="actualitzarFitxa(fil, col)" />
                 </template>
             </div>
             <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
@@ -20,12 +17,19 @@
 
 <script setup>
     import { useTiquetStore } from "~/stores/tiquet";
-    const tiquetStore=useTiquetStore();
     import { useUsuariStore } from "~/stores/usuari";
-    const usuariStore=useUsuariStore();
-    
+    const storeTiquet=useTiquetStore();
+    const storeUsuari=useUsuariStore();
+
     const files=5;
     const columnes=8;
+    const fitxaButaca = {
+        fila: files,
+        columna: columnes,
+        tipus: '',
+        ocupada: false,
+        seleccionada: false
+    }
     const teVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
@@ -49,11 +53,26 @@
             console.log(sessio);
         }
     });
-    function mostrarColor(butaca) {
-        color='~/assets/img/seientRoig.png'
-        return color
+
+    function actualitzarFitxa(fil, col) {
+        fitxaButaca.fila= files-fil+1,
+        fitxaButaca.columna= col,
+        fitxaButaca.tipus= teVip && fil===files-1? 'vip' : 'estandard',
+        fitxaButaca.ocupada= estaOcupada((files-fil+1), col)
+        return fitxaButaca;
     }
 
+    function estaOcupada(filaBuscada, columnaBuscada) {
+        const ocupada=false;
+        for (let i = 0; i < butaquesOcupades.length; i++) {
+            const butacaMirada = butaquesOcupades[i];
+            if (butacaMirada.fila==filaBuscada && butacaMirada.columna==columnaBuscada) {
+                ocupada=true;
+                break
+            }
+        }
+        return ocupada
+    }
     function afegirZeros(num) {
         return num.toString().padStart(2, "0");
     }
@@ -62,7 +81,7 @@
         console.log('Imprimiendo entrada...');
         const dia = new Date();
         //Llegir butaques seleccionades per pinia
-        const entradesPinia=tiquetStore.mostrarTiquet
+        const entradesPinia=storeTiquet.mostrarTiquet
         console.log(entradesPinia);
         for (let i = 0; i <entradesPinia.seients.length ; i++) {
             const seient = entradesPinia.seients[i];
@@ -73,10 +92,10 @@
                 tipus_butaca: seient.tipus,
                 preu: preuFinal,
                 data_compra: `${dia.getFullYear()}-${afegirZeros(dia.getMonth()+1)}-${afegirZeros(dia.getDate())} ${afegirZeros(dia.getHours())}:${afegirZeros(dia.getMinutes())}:${afegirZeros(dia.getSeconds())}`,
-                correu:usuariStore.mostrarCorreu
+                correu:storeUsuari.mostrarCorreu
             };
             console.log(entrada);
-            const response =$fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
+            $fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
                 method: "POST",
                 body:JSON.stringify(entrada)
             });
