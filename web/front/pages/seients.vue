@@ -35,28 +35,29 @@
     const teVip=true;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}`,{
+    const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}`,{
         method:'GET',
         onResponse(){
-            console.log(sessio);
-            for (let i = 0; i < sessio.records.Entrada.length; i++) {
-                console.log(sessio.records.Entrada[i]);
+            console.log(tiquets);
+            for (let i = 0; i < tiquets.records.Entrada.length; i++) {
+                console.log(tiquets.records[i]);
                 const butacaOcupada={
-                    fila: parseInt(sessio.records.Entrada[i].id_butaca.charAt(0)),
-                    columna: parseInt(sessio.records.Entrada[i].id_butaca.charAt(2))
+                    fila: parseInt(tiquets.records.id_butaca.charAt(0)),
+                    columna: parseInt(tiquets.records.id_butaca.charAt(2))
                 };
                 butaquesOcupades.push(butacaOcupada);
                 console.log(butaquesOcupades);
             }
-            if (parseInt(sessio.records.vip)!=0) {
+            if (parseInt(tiquets.records.vip)!=0) {
                 teVip=true;
             }
-            if (sessio.records.descompte_espect==0) {
+            if (tiquets.records.descompte_espect==0) {
                 teDescompte=true;
             }
-            console.log(sessio);
+            console.log(tiquets.records);
         }
     });
+
 
     function actualitzarFitxa(fil, col) {
 
@@ -72,13 +73,12 @@
     }
 
     function estatOcupacio(filaBuscada, columnaBuscada) {
-        const ocupada=false;
         for (let i = 0; i < butaquesOcupades.length; i++) {
             if (butaquesOcupades[i].fila==filaBuscada && butaquesOcupades[i].columna==columnaBuscada) {
                 return true
             }
         }
-        return ocupada
+        return false
     }
     function afegirZeros(num) {
         return num.toString().padStart(2, "0");
@@ -114,10 +114,10 @@
 
 
         // const entrada ={
-        //     id_sessio: sessio.records.id,
+        //     id_sessio: tiquets.records.id,
         //     id_butaca: `${fil}_${col}`,
         //     tipus_butaca: 'estandard',
-        //     preu: sessio.records.preu,
+        //     preu: tiquets.records.preu,
         //     data_compra: '',
         //     correu:usuariStore.mostrarCorreu()
         // };
