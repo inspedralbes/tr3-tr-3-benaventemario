@@ -21,3 +21,6 @@
         }
     });
 </script>
+
+<!-- GET /records/posts?join=comments,users&join=tags
+-->

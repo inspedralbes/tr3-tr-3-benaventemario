@@ -32,10 +32,10 @@
     const files=10;
     const columnes=12;
    
-    const teVip=false;
+    const teVip=true;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
+    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}`,{
         method:'GET',
         onResponse(){
             console.log(sessio);
@@ -63,7 +63,7 @@
         const fitxaButaca = {
             fila: files-fil+1,
             columna: col,
-            tipus: (teVip && fil==files-1)? 'vip' : 'estandard',
+            tipus: (teVip && fil==files)? 'vip' : 'estandard',
             ocupada: estatOcupacio((files-fil+1), col),
             seleccionada: false
         }

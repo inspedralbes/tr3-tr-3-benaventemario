@@ -38,7 +38,7 @@
 
     function butacaSeleccionada(){
         butaca.seleccionada=!butaca.seleccionada
-        if (butaca.seleccionada==true) {
+        if (butaca.seleccionada) {
             storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)
         }else{
             storeTiquet.cancelarButaca(butaca.fila, butaca.columna)
