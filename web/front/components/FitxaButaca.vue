@@ -25,7 +25,7 @@
         if (butaca.ocupada==true) {
             return'/img/seientOcupat.png';
         } else {
-            if (butaca.tipus=='vip') {
+            if (butaca.tipus!='estandard') {
                 return'/img/seientVip.png';
             }else{
                 if (butaca.seleccionada==true) {

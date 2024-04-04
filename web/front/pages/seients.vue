@@ -35,7 +35,7 @@
     const teVip=false;
     const teDescompte=false;
     const butaquesOcupades=[]; 
-    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${3/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
+    const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
         method:'GET',
         onResponse(){
             for (let i = 0; i < sessio.records.Entrada.length; i++) {
@@ -46,7 +46,7 @@
                 };
                 butaquesOcupades.push(butacaOcupada);
             }
-            if (sessio.records.vip==0) {
+            if (parseInt(sessio.records.vip)!=0) {
                 teVip=true;
             }
             if (sessio.records.descompte_espect==0) {
@@ -68,7 +68,7 @@
 
         fitxaButaca.fila= files-fil+1,
         fitxaButaca.columna= col,
-        fitxaButaca.tipus= teVip && fil===files-1? 'vip' : 'estandard',
+        fitxaButaca.tipus= teVip && fil==files-1? 'vip' : 'estandard',
         fitxaButaca.ocupada= estaOcupada((files-fil+1), col)
         return fitxaButaca;
     }
@@ -109,7 +109,7 @@
             console.log(entrada);
             entrades.push(entrada);
         }
-        $fetch(`${storeMeta.mostrarUrlImprimirEntrades}`, {
+        $fetch(`${storeMeta.mostrarBackUrl}/Entrada`, {
             method: "POST",
             body:JSON.stringify(entrades)
         });
