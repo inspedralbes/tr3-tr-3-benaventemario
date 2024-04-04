@@ -21,7 +21,6 @@
     
 
     function definirEstat() {
-        console.log(`mostrando color butaca ${butaca.columna} de la fila ${butaca.fila}`);
         if (butaca.ocupada==true) {
             return'/img/seientOcupat.png';
         } else {
@@ -38,8 +37,12 @@
     }
 
     function butacaSeleccionada(){
-        storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)
         butaca.seleccionada=!butaca.seleccionada
+        if (butaca.seleccionada==true) {
+            storeTiquet.afegirButaca(butaca.fila, butaca.columna, butaca.tipus)
+        }else{
+            storeTiquet.cancelarButaca(butaca.fila, butaca.columna)
+        }
         estat.value = definirEstat();
         console.log(butaca.seleccionada);
     }

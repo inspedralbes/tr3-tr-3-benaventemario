@@ -38,13 +38,15 @@
     const {pending, data: sessio}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio/${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}?join=Entrada`,{
         method:'GET',
         onResponse(){
+            console.log(sessio);
             for (let i = 0; i < sessio.records.Entrada.length; i++) {
-                const butaca = sessio.records.Entrada[i];
+                console.log(sessio.records.Entrada[i]);
                 const butacaOcupada={
-                    fila: parseInt(butaca.id_butaca.charAt(0)),
-                    columna: parseInt(butaca.id_butaca.charAt(2))
+                    fila: parseInt(sessio.records.Entrada[i].id_butaca.charAt(0)),
+                    columna: parseInt(sessio.records.Entrada[i].id_butaca.charAt(2))
                 };
                 butaquesOcupades.push(butacaOcupada);
+                console.log(butaquesOcupades);
             }
             if (parseInt(sessio.records.vip)!=0) {
                 teVip=true;
@@ -59,27 +61,21 @@
     function actualitzarFitxa(fil, col) {
 
         const fitxaButaca = {
-            fila: files,
-            columna: columnes,
-            tipus: '',
-            ocupada: false,
+            fila: files-fil+1,
+            columna: col,
+            tipus: (teVip && fil==files-1)? 'vip' : 'estandard',
+            ocupada: estatOcupacio((files-fil+1), col),
             seleccionada: false
         }
-
-        fitxaButaca.fila= files-fil+1,
-        fitxaButaca.columna= col,
-        fitxaButaca.tipus= teVip && fil==files-1? 'vip' : 'estandard',
-        fitxaButaca.ocupada= estaOcupada((files-fil+1), col)
+        
         return fitxaButaca;
     }
 
-    function estaOcupada(filaBuscada, columnaBuscada) {
+    function estatOcupacio(filaBuscada, columnaBuscada) {
         const ocupada=false;
         for (let i = 0; i < butaquesOcupades.length; i++) {
-            const butacaMirada = butaquesOcupades[i];
-            if (butacaMirada.fila==filaBuscada && butacaMirada.columna==columnaBuscada) {
-                ocupada=true;
-                break
+            if (butaquesOcupades[i].fila==filaBuscada && butaquesOcupades[i].columna==columnaBuscada) {
+                return true
             }
         }
         return ocupada
