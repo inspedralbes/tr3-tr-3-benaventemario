@@ -11,6 +11,6 @@
     max-width: 120px
 }
 
-.sala__butaca_vip{
-    content:url("~/assets/img/seientVip.png");
+.sala__butaca_ocupada{
+    opacity: 50%;
 }

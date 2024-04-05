@@ -32,31 +32,33 @@
     const files=10;
     const columnes=12;
    
-    const teVip=true;
-    const teDescompte=false;
+    const teVip=true;//ESTA EXPRESSION DEBE SER DINÁMICA EN BASE A LA SESSIOÓN GUARDADA EN PINIA
+    const teDescompte=false;//ESTA EXPRESSION DEBE SER DINÁMICA EN BASE A LA SESSIOÓN GUARDADA EN PINIA
     const butaquesOcupades=[]; 
     const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}`,{
-        method:'GET',
-        onResponse(){
-            console.log(tiquets);
-            for (let i = 0; i < tiquets.records.Entrada.length; i++) {
-                console.log(tiquets.records[i]);
-                const butacaOcupada={
-                    fila: parseInt(tiquets.records.id_butaca.charAt(0)),
-                    columna: parseInt(tiquets.records.id_butaca.charAt(2))
-                };
-                butaquesOcupades.push(butacaOcupada);
-                console.log(butaquesOcupades);
-            }
-            if (parseInt(tiquets.records.vip)!=0) {
-                teVip=true;
-            }
-            if (tiquets.records.descompte_espect==0) {
-                teDescompte=true;
-            }
-            console.log(tiquets.records);
-        }
+        method:'GET'
     });
+    watch(tiquets, (nouTiquets) => {
+        /* Because posts might start out null, you won't have access
+        to its contents immediately, but you can watch it.*/
+        console.log(nouTiquets);
+        for (let i = 0; i < nouTiquets.records.length; i++) {
+            console.log(nouTiquets.records[i]);
+            const butacaOcupada={
+                fila: parseInt(nouTiquets.records[i].id_butaca.charAt(0)),
+                columna: parseInt(nouTiquets.records[i].id_butaca.charAt(2))
+            };
+            butaquesOcupades.push(butacaOcupada);
+            console.log(butaquesOcupades);
+        }
+        if (parseInt(nouTiquets.records.vip)!=0) {
+            teVip=true;
+        }
+        // if (nouTiquets.records.descompte_espect==0) {
+        //     teDescompte=true;
+        // }
+        console.log(nouTiquets.records);
+    })
 
 
     function actualitzarFitxa(fil, col) {
