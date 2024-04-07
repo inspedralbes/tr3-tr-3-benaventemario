@@ -25,39 +25,35 @@
     import { useMetaStore } from "~/stores/meta";
     import { useTiquetStore } from "~/stores/tiquet";
     import { useUsuariStore } from "~/stores/usuari";
+    import { useSessioStore } from "~/stores/sessio";
     const storeMeta=useMetaStore();
     const storeTiquet=useTiquetStore();
     const storeUsuari=useUsuariStore();
-
+    const storeSessio=useSessioStore();
+    const sessio=storeSessio.mostrarSessio;
     const files=10;
     const columnes=12;
    
-    const teVip=true;//ESTA EXPRESSION DEBE SER DINÁMICA EN BASE A LA SESSIOÓN GUARDADA EN PINIA
-    const teDescompte=false;//ESTA EXPRESSION DEBE SER DINÁMICA EN BASE A LA SESSIOÓN GUARDADA EN PINIA
+    const teVip=sessio.vip;
+    const teDescompte=sessio.descompte_espect;
     const butaquesOcupades=[]; 
-    const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${2/*ESTA EXPRESSION DEBE SER DINÁMICA, MIRAR DOCU DE PAGES DE NUXT*/}`,{
+    console.log(`el log es "${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}"`);
+    const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}`,{
         method:'GET'
     });
     watch(tiquets, (nouTiquets) => {
         /* Because posts might start out null, you won't have access
         to its contents immediately, but you can watch it.*/
-        console.log(nouTiquets);
+        console.log(nouTiquets.records);
         for (let i = 0; i < nouTiquets.records.length; i++) {
             console.log(nouTiquets.records[i]);
             const butacaOcupada={
-                fila: parseInt(nouTiquets.records[i].id_butaca.charAt(0)),
-                columna: parseInt(nouTiquets.records[i].id_butaca.charAt(2))
+                fila: parseInt(nouTiquets.records[i].id_butaca.split("_")[0]),
+                columna: parseInt(nouTiquets.records[i].id_butaca.split("_")[1])
             };
             butaquesOcupades.push(butacaOcupada);
-            console.log(butaquesOcupades);
         }
-        if (parseInt(nouTiquets.records.vip)!=0) {
-            teVip=true;
-        }
-        // if (nouTiquets.records.descompte_espect==0) {
-        //     teDescompte=true;
-        // }
-        console.log(nouTiquets.records);
+        //console.log(butaquesOcupades);
     })
 
 
@@ -82,9 +78,6 @@
         }
         return false
     }
-    function afegirZeros(num) {
-        return num.toString().padStart(2, "0");
-    }
 
     function imprimirEntrades() {
         const entrades=[];
@@ -97,11 +90,11 @@
             const seient = entradesPinia.seients[i];
             const preuFinal=(seient.tipus!="estandard"? entradesPinia.preuSessio+2 : entradesPinia.preuSessio)
             const entrada ={
-                id_sessio: entradesPinia.sessio,
+                id_sessio: sessio.id,
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
-                preu: preuFinal,
-                data_compra: `${dia.getFullYear()}-${afegirZeros(dia.getMonth()+1)}-${afegirZeros(dia.getDate())} ${afegirZeros(dia.getHours())}:${afegirZeros(dia.getMinutes())}:${afegirZeros(dia.getSeconds())}`,
+                preu: sessio.descompte_espect?preuFinal-2:preuFinal,
+                data_compra: `${dia.getFullYear()}-${storeSessio.formatarData(dia.getMonth()+1)}-${storeSessio.formatarData(dia.getDate())} ${storeSessio.formatarData(dia.getHours())}:${storeSessio.formatarData(dia.getMinutes())}:${storeSessio.formatarData(dia.getSeconds())}`,
                 correu:storeUsuari.mostrarCorreu
             };
             console.log(entrada);
@@ -126,8 +119,7 @@
         // const response =$fetch(`http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records/Entrada`, {
         //     method: "POST",
         //     body:JSON.stringify(entrada)
-        // });
-        
+        // });       
     }
   
 

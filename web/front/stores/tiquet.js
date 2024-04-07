@@ -5,9 +5,7 @@ import { defineStore } from 'pinia'
 export const useTiquetStore = defineStore('tiquet', {
     state: () => ({
         tiquet:{
-            sessio: 2,
-            seients: [],
-            preuSessio:6
+            seients: []
         }
     }),
     getters: {
