@@ -1,5 +1,7 @@
 .sala__fila{
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
  
 .sala__butaca{
@@ -18,4 +20,6 @@
 .llista__cos{
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
