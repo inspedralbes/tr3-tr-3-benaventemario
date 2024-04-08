@@ -34,8 +34,7 @@
     const files=10;
     const columnes=12;
    
-    const teVip=sessio.vip;
-    const teDescompte=sessio.descompte_espect;
+    const teVip=true//sessio.vip;
     const butaquesOcupades=[]; 
     console.log(`el log es "${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}"`);
     const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}`,{
