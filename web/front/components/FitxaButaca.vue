@@ -24,11 +24,11 @@
         if (butaca.ocupada===true) {
             return'/img/seientOcupat.png';
         } else {
-            if (butaca.tipus!='estandard') {
-                return'/img/seientVip.png';
+            if (butaca.seleccionada==true) {
+                return'/img/seientSeleccionat.png';
             }else{
-                if (butaca.seleccionada==true) {
-                    return'/img/seientSeleccionat.png';
+                if (butaca.tipus!='estandard') {
+                    return'/img/seientVip.png';
                 }else{
                     return'/img/seientRoig.png'
                 }

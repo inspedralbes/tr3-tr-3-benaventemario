@@ -7,10 +7,15 @@
     height: 8vw;
     min-height: 13px;
     min-width: 13px;
-    max-height: 120px;
-    max-width: 120px
+    max-height: 90px;
+    max-width: 90px
 }
 
 .sala__butaca_ocupada{
     opacity: 50%;
+}
+
+.llista__cos{
+    display: flex;
+    flex-wrap: wrap;
 }
