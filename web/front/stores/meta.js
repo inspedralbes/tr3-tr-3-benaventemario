@@ -2,16 +2,14 @@ import { defineStore } from 'pinia'
 
 export const useMetaStore = defineStore('meta', {
     state: () => ({
-        backUrl:'http://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records',
-        entradesUrl:'http://tr3marbenalc.daw.inspedralbes.cat/back/enviarEntrades.php/'
-
+        prodUrl:'https://tr3marbenalc.daw.inspedralbes.cat/back/api.php/records',
+        entradesUrl:'https://tr3marbenalc.daw.inspedralbes.cat/back/enviarEntrades.php/',
+        devUrl:'http://mario.daw.inspedralbes.cat/api/api.php/records'
+        
     }),
     getters: {
         mostrarBackUrl() {
-            return this.backUrl
+            return this.devUrl
         },
-        mostrarUrlImprimirEntrades() {
-            return this.entradesUrl
-        }
     },
 })
