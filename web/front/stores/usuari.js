@@ -11,19 +11,19 @@ export const useUsuariStore = defineStore('usuari', {
     getters: {
         mostrarCorreu() {
             return this.usuari.correu
+        },
+        comprovarAdmin(){
+            return this.usuari.admin
         }
     },
     actions: {
         afegirUsuari(nouCorreu) {
-            this.usuari.correu=nouCorreu;
+            this.usuari.correu=nouCorreu;   
             if (this.usuari.correu=='a21marbenalc@inspedralbes.cat') {
                 this.usuari.admin=true
             }else{
                 this.usuari.admin=false
             }
         },
-        comprovarAdmin(){
-            return this.usuari.admin
-        }
     }
 })

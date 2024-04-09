@@ -3,19 +3,28 @@
 https://stackoverflow.com/questions/75440449/nuxt3-vue3-how-to-show-modal-component-that-is-called-from-header-component -->
     <div class="modal__caixa">
         <div class="modal__contingut">
-            <h8 class="modal__titol">Si us plau, escrigui el seu correu abans de fer qualsevol compra</h8>
-            <input v-model="valorCorreu" type="text" /> class="modal__campCorreu" type="email" placeholder="exemple@gencat.cat" required/>
-            <button class="modal__enregistrament" @click="registrar()">Registrar-me</button>
+            <h6 class="modal__titol">Registre</h6>
+            <p class="modal__text">Si us plau, escrigui el seu correu abans de fer qualsevol compra</p>
+
+            <input v-model="valorCorreu" class="modal__campCorreu" type="email" placeholder="exemple@gencat.cat" required/>
+            <br><button class="modal__enregistrament" @click="registrar()">Registrar-me</button>
         </div>
-        <div class="modal__tancament">
+        <div class="modal__tancament" @click="$emit('tancarModal')">
             &times;
         </div>
     </div>
 </template>
 
 <script setup>
-function registrar() {
-}
+    import { useUsuariStore } from "~/stores/usuari";
+    const storeUsuari=useUsuariStore();
+    const emit = defineEmits(['tancarModal'])
+
+    const valorCorreu=ref();
+    function registrar() {
+        storeUsuari.afegirUsuari(valorCorreu.value);
+        emit('tancarModal')
+    }
 </script>
 
 <style>
@@ -43,20 +52,21 @@ function registrar() {
         margin: 10% 0 0 16px;
         cursor: pointer;
         width: 25px;
+        color: white;
     }
 
-    h6 {
+    .modal__titol {
         font-weight: 500;
         font-size: 28px;
         margin: 20px 0;
     }
 
-    p {
+    .modal__text {
         font-size: 16px;
         margin: 20px 0;
     }
 
-    button {
+    .modal__enregistrament {
         background-color: #ac003e;
         width: 150px;
         height: 40px;
