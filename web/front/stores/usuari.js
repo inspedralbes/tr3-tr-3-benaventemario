@@ -4,14 +4,11 @@ import { defineStore } from 'pinia'
 export const useUsuariStore = defineStore('usuari', {
     state: () => ({
         usuari:{
-            admin: false,
-            correu:''
+            correu:'',
+            admin:false
         }
     }),
     getters: {
-        mostrarUsuari() {
-            return this.usuari
-        },
         mostrarCorreu() {
             return this.usuari.correu
         }
@@ -19,12 +16,14 @@ export const useUsuariStore = defineStore('usuari', {
     actions: {
         afegirUsuari(nouCorreu) {
             this.usuari.correu=nouCorreu;
-            this.comprovarAdmin();
+            if (this.usuari.correu=='a21marbenalc@inspedralbes.cat') {
+                this.usuari.admin=true
+            }else{
+                this.usuari.admin=false
+            }
         },
         comprovarAdmin(){
-        if (this.usuari.correu) {
-            this.usuari.admin=false;
-        }
+            return this.usuari.admin
         }
     }
 })

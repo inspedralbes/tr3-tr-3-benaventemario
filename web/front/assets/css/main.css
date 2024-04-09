@@ -27,16 +27,16 @@
 
 
 
-body.sessioPopup_actiu{
+body.popupActiu{
     overflow: hidden;
     
 }
-body.sessioPopup_actiu .cine{
+body.popupActiu .cine{
     filter:blur(5px);
     background: rgba(0, 0, 0, 0.08);
     transition: filter 0ms ease-in-out 0ms;
 }
-body.sessioPopup_actiu .sessioPopup{
+body.popupActiu .sessioPopup{
     top: 50%;
     opacity: 1;
     margin-top: 0px;

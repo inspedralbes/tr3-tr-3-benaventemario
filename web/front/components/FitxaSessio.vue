@@ -34,9 +34,9 @@
         if (nouValor==true) {
             recarregarSessio();
             document.body.classList.remove("buit")
-            document.body.classList.add("sessioPopup_actiu");
+            document.body.classList.add("popupActiu");
         }else{
-            document.body.classList.remove("sessioPopup_actiu");
+            document.body.classList.remove("popupActiu");
             document.body.classList.add("buit")
         }
     }
