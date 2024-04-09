@@ -27,7 +27,7 @@ export const useSessioStore = defineStore('sessio', {
     actions: {
         novaSessio(novaSessio) {
             this.sessio.clear; 
-            this.sessio=novaSessio.records[0]
+            this.sessio=novaSessio//.records[0]
             console.log(this.sessio);
         },
         formatarData(num) {

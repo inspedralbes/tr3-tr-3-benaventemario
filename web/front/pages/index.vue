@@ -12,7 +12,7 @@
     
     onMounted(async () => { 
       const dia = new Date();
-      storeSessio.novaSessio(await $fetch(`${storeMeta.mostrarBackUrl}/Sessio?filter=dia,eq,${storeSessio.formatarData(dia.getDate())}-${storeSessio.formatarData(dia.getMonth()+1)}&join=Pelicula`))
+      storeSessio.novaSessio((await $fetch(`${storeMeta.mostrarBackUrl}/Sessio?filter=dia,eq,${storeSessio.formatarData(dia.getDate())}-${storeSessio.formatarData(dia.getMonth()+1)}&join=Pelicula`)).records[0])
 
     });
 </script>

@@ -30,23 +30,15 @@
 
     function obrirOTancarPopup(nouValor) {
         mostrarDetalls.value=nouValor;
+        console.log(nouValor);
         if (nouValor==true) {
             recarregarSessio();
-            document.body.className="sessioPopup_actiu"
+            document.body.classList.remove("buit")
+            document.body.classList.add("sessioPopup_actiu");
         }else{
-            document.body.className="buit"
+            document.body.classList.remove("sessioPopup_actiu");
+            document.body.classList.add("buit")
         }
-        // useHead({
-        //     bodyAttrs: {
-        //         class: computed(() => {
-        //             if (mostrarDetalls===true){
-        //                 return 'sessioPopup_actiu';
-        //             }else{
-        //                 return 'buit';
-        //             }
-        //         }),
-        //     },
-        // });
     }
 </script>
 
