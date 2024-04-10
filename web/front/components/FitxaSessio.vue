@@ -1,15 +1,15 @@
 <template>
-    <span v-if="vistaAdmin!=false">
-        <td>{{sessio.peli.dia}}</td>
-        <td>{{sessio.peli.hora}}</td>
+    <template v-if="vistaAdmin!=false && desactivar!=true">
+        <td>{{sessio.dia}}</td>
+        <td>{{sessio.hora}}</td>
         <td>{{sessio.peli.titol}}</td>
         <td>
             <span v-if="pending">calculant....</span> 
-            <span v-else>{{preuTotal}}</span>
+            <span v-else>{{calcularPreuTotal()}}€</span>
         </td>
-        <td>&times;</td>
-    </span>
-    <span v-else>
+        <td class="esborrar" @click="esborrarSessio()">&times;</td>
+    </template>
+    <span v-else-if="vistaAdmin!=true">
         <img  @click="obrirOTancarPopup(true)" width="150" height="220" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
         <!-- <UModal v-model="isOpen">
             <div class="p-4">
@@ -29,13 +29,35 @@
 </template>
 
 <script setup>
+    import { useMetaStore } from "~/stores/meta";
+    const storeMeta=useMetaStore();
     import { useSessioStore } from "~/stores/sessio";
     const storeSessio=useSessioStore();
     
     import { ref } from 'vue';
     const mostrarDetalls = ref(false)
-    const {sessio}=defineProps(['sessio'])
-    const {vistaAdmin}=defineProps(['vistaAdmin'])
+    const {sessio, vistaAdmin}=defineProps(['sessio', 'vistaAdmin'])
+    const desactivar = ref(false)
+    const {pending, data: preus}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=sessio,eq,${sessio.id}&include=preu`,{
+        method:'GET'
+    });
+    
+
+    function calcularPreuTotal() {
+        console.log(preus);
+        const suma=ref(0);
+        for (let i = 0; i < preus.records.length; i++) {
+            const element = preus.records[i];
+            suma.value+=parseInt(element.preu)   
+        }
+        return suma.value 
+    }
+    function esborrarSessio() {
+        desactivar.value=true;
+        $fetch(`${storeMeta.mostrarBackUrl}/Sessio/${sessio.id}`, {
+            method: "DELETE"
+        });
+    }
 
     function recarregarSessio() {
         storeSessio.novaSessio(sessio)
@@ -53,6 +75,7 @@
             document.body.classList.add("buit")
         }
     }
+
 </script>
 
 <style>

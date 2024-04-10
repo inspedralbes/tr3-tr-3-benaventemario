@@ -17,7 +17,6 @@
                         <th>Titol</th>
                         <th>Preu</th>
                         <th>&times;</th>
-                        
                     </tr>
                     <tr v-for="item in sessions.records">
                         <FitxaSessio :sessio="item" :vistaAdmin="true"/>
@@ -38,18 +37,27 @@
 </template>
 
 <script setup>
-const panell={
-    crear: false,
-    taula: true
-}
+    import { useMetaStore } from "~/stores/meta";
+    const storeMeta=useMetaStore();
+    
+    const panell={
+        crear: false,
+        taula: true
+    }
 
-function activarPanell(nouPanell) {
-    panell.crear= false
-    panell.taula= false
+    const {pending, data: sessions}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio?join=Pelicula`,{
+        method:'GET',
+        onResponse(){
+        }
+    });
 
-    panell[nouPanell]=true
-    console.log(panell);
-}
+    function activarPanell(nouPanell) {
+        panell.crear= false
+        panell.taula= false
+
+        panell[nouPanell]=true
+        console.log(panell);
+    }
 
 
 </script>
