@@ -13,9 +13,7 @@
             </span>
         </nav>
     </header>
-    <Teleport to="body">
-      <loginPopup v-if="mostrarLogin==true" @tancarModal="mostrarLogin = false"/>
-    </Teleport>
+    <loginPopup v-if="mostrarLogin==true" @tancarModal="mostrarLogin = false"/>
     <NuxtPage />
 
   </div>

@@ -89,7 +89,7 @@
             const seient = entradesPinia.seients[i];
             const preuFinal=(seient.tipus!="estandard"? entradesPinia.preuSessio+2 : entradesPinia.preuSessio)
             const entrada ={
-                id_sessio: sessio.id,
+                sessio: sessio.id,
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
                 preu: sessio.descompte_espect?preuFinal-2:preuFinal,
