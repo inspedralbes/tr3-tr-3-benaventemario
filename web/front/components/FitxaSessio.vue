@@ -1,4 +1,15 @@
 <template>
+    <span v-if="vistaAdmin!=false">
+        <td>{{sessio.peli.dia}}</td>
+        <td>{{sessio.peli.hora}}</td>
+        <td>{{sessio.peli.titol}}</td>
+        <td>
+            <span v-if="pending">calculant....</span> 
+            <span v-else>{{preuTotal}}</span>
+        </td>
+        <td>&times;</td>
+    </span>
+    <span v-else>
         <img  @click="obrirOTancarPopup(true)" width="150" height="220" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
         <!-- <UModal v-model="isOpen">
             <div class="p-4">
@@ -14,6 +25,7 @@
                 <button><NuxtLink to="/sala">Reservar entrades</NuxtLink></button>
             </div>
         </Teleport>
+    </span>
 </template>
 
 <script setup>
@@ -23,6 +35,7 @@
     import { ref } from 'vue';
     const mostrarDetalls = ref(false)
     const {sessio}=defineProps(['sessio'])
+    const {vistaAdmin}=defineProps(['vistaAdmin'])
 
     function recarregarSessio() {
         storeSessio.novaSessio(sessio)

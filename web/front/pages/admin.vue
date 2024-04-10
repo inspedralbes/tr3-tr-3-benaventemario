@@ -1,44 +1,51 @@
 <template>
-    <div class="admin__dreta">
-        <button @click="activarPanell('esborrar')">Esborra sessions</button>
-        <button>Crear Sessió</button>
+    <div class="admin__control">
+        <button >Esborra sessions</button>
+        <button @click="activarPanell('crear')">Crear Sessió</button>
     </div>
-    <div class="admin__esquerra">
-        <div v-if="panell.esborrar==true" class="admin__esborrar">
+    <div class="admin__mostra">
+        <div v-if="panell.taula==true" class="admin__taula">
+
             <div v-if="pending">
                 Carregant...
             </div>
-            <div v-else class="llista__cos">
-                <span v-for="item in sessions.records">
-                <FitxaSessio :sessio="item" :vistaAdmin="true"/>
-                </span>
+            <div v-else>
+                <table>
+                    <tr class="admin__taula_cap">
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Titol</th>
+                        <th>Preu</th>
+                        <th>&times;</th>
+                        
+                    </tr>
+                    <tr v-for="item in sessions.records">
+                        <FitxaSessio :sessio="item" :vistaAdmin="true"/>
+                    </tr>
+                </table>
             </div>
+
         </div>
+
+
         <div v-if="panell.crear==true" class="admin__crear">
             <div v-if="pending">
                 Carregant...
             </div>
         </div>
-        <div v-if="panell.recaptParcial==true || panell.recaptTotal==true" class="admin__recapt">
-            
-        </div>
+       
     </div>
 </template>
 
 <script setup>
 const panell={
-    esborrar: false,
     crear: false,
-    recaptParcial: false,
-    recaptTotal: false
-
+    taula: true
 }
 
 function activarPanell(nouPanell) {
-    panell.esborrar= false,
-    panell.crear= false,
-    panell.recaptParcial= false,
-    panell.recaptTotal= false
+    panell.crear= false
+    panell.taula= false
 
     panell[nouPanell]=true
     console.log(panell);

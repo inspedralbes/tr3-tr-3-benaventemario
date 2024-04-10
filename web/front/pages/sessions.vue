@@ -5,7 +5,7 @@
       </div>
       <div v-else class="llista__cos">
         <span v-for="item in sessions.records">
-          <FitxaSessio :sessio="item"/>
+          <FitxaSessio :sessio="item" :vistaAdmin="false"/>
         </span>
       </div>
     </section>
