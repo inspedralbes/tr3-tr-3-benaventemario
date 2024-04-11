@@ -1,6 +1,6 @@
 <template>
     <div class="admin__control">
-        <button @click="mostrarCreacio=true">Crear Sessió</button>
+        <button class="btn" @click="mostrarCreacio=true">Crear Sessió</button>
     </div>
     <div class="admin__mostra">
         <div class="admin__taula">

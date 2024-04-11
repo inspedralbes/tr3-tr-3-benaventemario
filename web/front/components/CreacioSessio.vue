@@ -1,7 +1,7 @@
 <template>
 
     <div class="modal__caixa">
-        <div class="modal__contingut">
+        <div class="modal__contingut modal__creacio">
             <h6 class="modal__titol">Nova Sessió</h6>
             <label class="modal__text" for="peli">Película:</label>
             <select id="peli" v-model="seleccioPeli">
@@ -35,7 +35,7 @@
                 </template>
             </select>
         
-            <button @click="guardarSessio()">Guardar Sessió</button>
+            <button class="btn" @click="guardarSessio()">Guardar Sessió</button>
 
         </div>
         <div class="modal__tancament" @click="$emit('tancarModal')">

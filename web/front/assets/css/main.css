@@ -1,6 +1,93 @@
-.admin__mostra{
-    text-align: center;
+/* Estils básics */
+body {
+    background-color: #1f1f1f; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
+a {
+    color: white;
+    text-decoration: none; /* no underline */
+    cursor: pointer;
+}
+.cine{
+    /* display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center; */
+}
+header {
+    background-color: #333; /* Fondo oscuro */
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 1.5vh;
+    text-align: center;
+    position: sticky;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column-reverse;
+    h2{
+        margin: 1px 0 4px 0;
+    }
+}
+
+footer{
+    background-color: #333;
+    color: #fff;
+    padding: 0.5vh 0 0 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p{
+        padding: 0 0.5vh 0.5vh 0;
+    }
+}
+.menu{
+    /* position: absolute;
+    top: 1px; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6c0b8c; /* Color del botón */
+    color: #fff; /* Texto blanco */
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.menu__esquerra{
+    text-align: left;
+    margin-left: 1vw;
+}
+.menu__dreta{
+    text-align: right;
+    margin-right: 1vw;
+}
+
+
+
+.inici__cos{
+    margin: 25vh auto;
+    display: grid;
+    place-items: center;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 4vh;
+}
+
+/* Estils de la sala de butaques */
 .sala__fila{
     display: flex;
     align-items: center;
@@ -12,23 +99,134 @@
     height: 8vw;
     min-height: 13px;
     min-width: 13px;
-    max-height: 90px;
-    max-width: 90px
+    max-height: 38px;
+    max-width: 38px
 }
 
 .sala__butaca_ocupada{
     opacity: 50%;
 }
 
-.llista__cos{
+/* Estil de la mostra de sessions */
+.cartellera{
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+.cartaPeli{
+    background-color: #333;
     display: flex;
-    flex-wrap: wrap;
+    text-align: center;
     align-items: center;
     justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.cartaPeli__resum{
+    padding-left: 3px;
+    display: grid;
+    grid-row-gap: 20px;
 }
 
+/* Estils de modals */
+.modal__caixa {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #000000da;
+}
 
+.modal__contingut {
+    text-align: center;
+    background-color: rgb(60, 60, 60);
+    max-width: 73vw;
+    margin-top: 6vw;
+    margin-bottom: 6vw;
+    height: fit-content;
+    border-radius: 7%;
+    padding: 0 1.5vh 4vh 1.5vh;
+}
 
+.modal__titol {
+    font-weight: 500;
+    font-size: 28px;
+    margin: 20px 0;
+}
+
+.modal__text {
+    font-size: 16px;
+    margin: 20px 0;
+}
+
+.modal__boto {
+    width: 31%;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 25%;
+    margin-top: 4vw;
+    a{
+        color: black;
+    }
+}
+
+.modal__campCorreu{
+    width: 81%;
+    max-width: max-content;
+    text-align: center;
+}
+.modal__creacio{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    *{
+        width: 81%;
+        max-width: max-content;
+        text-align: center;
+    }
+    .btn{
+        padding: 5px 10px;
+        margin-top: 8px;
+    }
+}
+
+.modal__tancament {
+    margin: 10% 0 0 16px;
+    cursor: pointer;
+    width: 25px;
+    color: white;
+}
+.admin__mostra{
+    text-align: center;
+    margin-bottom: 57px;
+    display: grid;
+    place-items: center;
+    margin-top: 0.5vh;
+}
+.admin__control{
+    text-align: right;
+    button{
+        padding: 5px 10px;
+        margin-right: 1vw;
+    }
+}
+
+.modal__creacio{
+    padding: 5px 10px;
+}
+
+.modal__enregistrament{
+    padding: 5px 10px;
+    margin-top: 8px;
+}
+
+/* 
 body.popupActiu{
     overflow: hidden;
     
@@ -76,4 +274,4 @@ body.popupActiu .sessioPopup{
     border: none;
     outline: none;
     border-radius: 50%;
-}
+} */

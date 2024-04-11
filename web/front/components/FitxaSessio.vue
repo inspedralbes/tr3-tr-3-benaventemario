@@ -10,21 +10,30 @@
         <td class="esborrar" @click="esborrarSessio()">&times;</td>
     </template>
     <span v-else-if="vistaAdmin!=true">
-        <img  @click="obrirOTancarPopup(true)" width="150" height="220" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
-        <!-- <UModal v-model="isOpen">
-            <div class="p-4">
-                <Placeholder class="h-48" />
+
+        <div class="cartaPeli" @click="recarregarSessio()">
+            <img  width="150" height="220" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
+            <div class="cartaPeli__resum">
+                <span class="cartaPeli__titol">{{sessio.peli.titol}}</span>
+                <span class="cartaPeli__text">Data: {{sessio.dia}}</span>
+                <span class="cartaPeli__text">Hora: {{sessio.hora}}</span>
             </div>
-        </UModal> -->
-        <Teleport to="body">
-            <div class="sessioPopup" v-if="mostrarDetalls">
-                <h2>{{ sessio.peli.titol }}</h2>
-                <img width="250" height="366" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
-                <span>{{ sessio.peli.descripcio }}</span>
-                <button @click="obrirOTancarPopup(false)" aria-label="Tancar Popup" class="sessioPopup__botoTancament">&times;</button>
-                <button><NuxtLink to="/sala">Reservar entrades</NuxtLink></button>
+        </div>
+        <template v-if="mostrarDetalls!=false">
+            <div class="modal__caixa">
+                <div class="modal__contingut">
+                    <h6 class="modal__titol">{{ sessio.peli.titol }}</h6>
+                    <img width="150" height="220" :src="sessio.peli.imatge" :alt="`poster de ${sessio.peli.titol}`" srcset="">
+                    <br>
+                    <span>{{ sessio.peli.descripcio }}</span>
+                    <br>
+                    <button class="modal__boto"><NuxtLink to="/sala">Reservar entrades</NuxtLink></button>
+                </div>
+                <div class="modal__tancament" @click="tancarModal()">
+                    &times;
+                </div>
             </div>
-        </Teleport>
+        </template>
     </span>
 </template>
 
@@ -38,6 +47,7 @@
     const mostrarDetalls = ref(false)
     const preuTotal = ref(0)
     const {sessio, vistaAdmin}=defineProps(['sessio', 'vistaAdmin'])
+    
     const desactivar = ref(false)
     const {pending, data: preus}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=sessio,eq,${sessio.id}&include=preu`,{
         method:'GET'
@@ -63,19 +73,10 @@
 
     function recarregarSessio() {
         storeSessio.novaSessio(sessio)
+        mostrarDetalls.value=true
     }
-
-    function obrirOTancarPopup(nouValor) {
-        mostrarDetalls.value=nouValor;
-        console.log(nouValor);
-        if (nouValor==true) {
-            recarregarSessio();
-            document.body.classList.remove("buit")
-            document.body.classList.add("popupActiu");
-        }else{
-            document.body.classList.remove("popupActiu");
-            document.body.classList.add("buit")
-        }
+    function tancarModal() {
+        mostrarDetalls.value=false
     }
 
 </script>

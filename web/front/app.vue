@@ -1,21 +1,24 @@
 <template>
   <div class="cine">
     <header>
-      <h2>CINEMAR</h2>
+      <h2 >CINEMAR</h2>
         <nav class="menu">
-            <span class="menu__esquerra">
-                <NuxtLink to="/">Home</NuxtLink>
-            </span>
-            <span class=menu__dreta>
+            <div class="menu__esquerra">
+                <NuxtLink to="/">Inici</NuxtLink>
+            </div>
+            <div class=menu__dreta>
                 <NuxtLink v-if="(storeUsuari.comprovarAdmin)!=false" to="/admin">Admin</NuxtLink>
-                <NuxtLink @click="mostrarLogin=true">Login</NuxtLink>
-                <span v-if="storeUsuari.mostrarCorreu!=''">{{ storeUsuari.mostrarCorreu }}</span>
-            </span>
+                <NuxtLink @click="mostrarLogin=true">Registre</NuxtLink>
+                <span v-if="storeUsuari.mostrarCorreu!=''"> {{ storeUsuari.mostrarCorreu }}</span>
+            </div>
         </nav>
     </header>
     <loginPopup v-if="mostrarLogin==true" @tancarModal="mostrarLogin = false"/>
     <NuxtPage />
 
+    <footer>
+          <p>&copy; 2024 CineXYZ. Tots els drets reservats.</p>
+      </footer>
   </div>
 </template>
 

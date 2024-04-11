@@ -3,7 +3,7 @@
       <div v-if="pending">
         Carregant Sessions...
       </div>
-      <div v-else class="llista__cos">
+      <div v-else class="cartellera">
         <span v-for="item in sessions.records">
           <FitxaSessio :sessio="item" :vistaAdmin="false"/>
         </span>

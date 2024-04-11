@@ -1,6 +1,8 @@
 <template>
-    <button><NuxtLink to="/sala">Sessió d'avui</NuxtLink></button>
-    <button><NuxtLink to="/sessions">Próximes sessions</NuxtLink></button>
+  <div class="inici__cos">
+    <button class="btn"><NuxtLink to="/sala">Sessió d'avui</NuxtLink></button>
+    <button class="btn"><NuxtLink to="/sessions">Próximes sessions</NuxtLink></button>
+  </div>
 </template>
 
 <script setup>
