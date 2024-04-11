@@ -24,7 +24,7 @@
         </template>
     </select>
 
-    <label for="descompte">Té descompte?(Dia de l'espectador, dates especials...):</label>
+    <label for="descompte">Té descompte?(Dia de l'espectador, dates especials...)</label>
     <select id="descompte" v-model="seleccioDescompte">
         <template v-for="element in descompteEspectador">
             <option :value="element.valor">{{element.mostra}}</option>
@@ -60,7 +60,7 @@
     }]
     import { ref } from 'vue';
     const seleccioPeli = ref(1)
-    const seleccioDia = ref('01-01')
+    const seleccioDia = ref('')
     const seleccioHora = ref('16:00')
     const seleccioVip = ref(0)
     const seleccioDescompte = ref(0)

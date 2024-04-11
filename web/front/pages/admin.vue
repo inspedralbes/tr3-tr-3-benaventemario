@@ -1,9 +1,9 @@
 <template>
     <div class="admin__control">
-        <button @click="activarPanell('crear')">Crear Sessió</button>
+        <button @click="mostrarCreacio=true">Crear Sessió</button>
     </div>
     <div class="admin__mostra">
-        <div v-if="panell.taula==true" class="admin__taula">
+        <div class="admin__taula">
 
             <div v-if="pending">
                 Carregant...
@@ -26,11 +26,7 @@
         </div>
 
 
-        <div v-if="panell.crear==true" class="admin__crear">
-            <div v-if="pending">
-                Carregant...
-            </div>
-        </div>
+        <CreacioSessio v-if="mostrarCreacio==true" class="admin__crear"/>
        
     </div>
 </template>
@@ -39,24 +35,13 @@
     import { useMetaStore } from "~/stores/meta";
     const storeMeta=useMetaStore();
     
-    const panell={
-        crear: false,
-        taula: true
-    }
+    const mostrarCreacio=false
 
     const {pending, data: sessions}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio?join=Pelicula`,{
         method:'GET',
         onResponse(){
         }
     });
-
-    function activarPanell(nouPanell) {
-        panell.crear= false
-        panell.taula= false
-
-        panell[nouPanell]=true
-        console.log(panell);
-    }
 
 
 </script>
