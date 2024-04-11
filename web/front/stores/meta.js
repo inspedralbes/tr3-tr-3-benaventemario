@@ -9,7 +9,7 @@ export const useMetaStore = defineStore('meta', {
     }),
     getters: {
         mostrarBackUrl() {
-            return this.devUrl
+            return this.prodUrl
         },
     },
 })

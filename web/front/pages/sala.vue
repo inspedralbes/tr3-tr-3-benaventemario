@@ -37,7 +37,7 @@
     const teVip=sessio.vip!=0?true:false;
     const butaquesOcupades=[]; 
     console.log(`el log es "${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}"`);
-    const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}`,{
+    const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=sessio,eq,${sessio.id}`,{
         method:'GET'
     });
     watch(tiquets, (nouTiquets) => {
