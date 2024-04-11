@@ -5,7 +5,7 @@
         <td>{{sessio.peli.titol}}</td>
         <td>
             <span v-if="pending">calculant....</span> 
-            <span v-else>{{calcularPreuTotal()}}€</span>
+            <span v-else>{{preuTotal}}€</span>
         </td>
         <td class="esborrar" @click="esborrarSessio()">&times;</td>
     </template>
@@ -36,22 +36,24 @@
     
     import { ref } from 'vue';
     const mostrarDetalls = ref(false)
+    const preuTotal = ref(0)
     const {sessio, vistaAdmin}=defineProps(['sessio', 'vistaAdmin'])
     const desactivar = ref(false)
     const {pending, data: preus}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=sessio,eq,${sessio.id}&include=preu`,{
         method:'GET'
     });
     
-
-    function calcularPreuTotal() {
-        console.log(preus);
+    watch(preus, (nousPreus) => {
+        console.log(nousPreus);
         const suma=ref(0);
-        for (let i = 0; i < preus.records.length; i++) {
-            const element = preus.records[i];
-            suma.value+=parseInt(element.preu)   
+        if (nousPreus.records != null) {
+            for (let i = 0; i < nousPreus.records.length; i++) {
+                suma.value+=nousPreus.records[i].preu!=null?parseInt(nousPreus.records[i].preu):0   
+            }
         }
-        return suma.value 
-    }
+        preuTotal.value=suma.value 
+    })
+    
     function esborrarSessio() {
         desactivar.value=true;
         $fetch(`${storeMeta.mostrarBackUrl}/Sessio/${sessio.id}`, {

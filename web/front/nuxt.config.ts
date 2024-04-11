@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
     routeRules: {
         // Homepage pre-rendered at build time
-        '/': { ssr: true },
+        '/': { ssr: false },
         '/**':{ssr:false}
         /*
         // Products page generated on demand, revalidates in background, cached until API response changes

@@ -26,7 +26,7 @@
         </div>
 
 
-        <CreacioSessio v-if="mostrarCreacio==true" class="admin__crear"/>
+        <CreacioSessio v-if="mostrarCreacio==true" @tancarModal="mostrarCreacio = false" class="admin__crear"/>
        
     </div>
 </template>
@@ -34,8 +34,8 @@
 <script setup>
     import { useMetaStore } from "~/stores/meta";
     const storeMeta=useMetaStore();
-    
-    const mostrarCreacio=false
+    import { ref } from 'vue';
+    const mostrarCreacio=ref(false)
 
     const {pending, data: sessions}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Sessio?join=Pelicula`,{
         method:'GET',

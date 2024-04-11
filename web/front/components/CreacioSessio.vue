@@ -1,43 +1,58 @@
 <template>
-    <label for="peli">Película:</label>
-    <select id="peli" v-model="seleccioPeli">
-        <option disabled value="">Película...</option>
-        <template v-for="element in pelis.records">
-            <option :value="element.id">{{element.titol}}</option>
-        </template>
-    </select>
 
-    <label for="dia">Dia:</label>
-    <input type="date" id="dia" v-model="seleccioDia">
+    <div class="modal__caixa">
+        <div class="modal__contingut">
+            <h6 class="modal__titol">Nova Sessió</h6>
+            <label class="modal__text" for="peli">Película:</label>
+            <select id="peli" v-model="seleccioPeli">
+                <option disabled value="">Película...</option>
+                <template v-for="element in pelis.records">
+                    <option :value="element.id">{{element.titol}}</option>
+                </template>
+            </select>
+        
+            <label class="modal__text" for="dia">Dia:</label>
+            <input type="date" id="dia" v-model="seleccioDia">
+        
+            <label class="modal__text" for="hora">Hora:</label>
+            <select id="hora" v-model="seleccioHora">
+                <template v-for="element in hora">
+                    <option :value="element">{{element}}</option>
+                </template>
+            </select>
+        
+            <label class="modal__text" for="vip">És una sessio vip? </label>
+            <select id="vip" v-model="seleccioVip">
+                <template v-for="element in estatusVip">
+                    <option :value="element.valor">{{element.mostra}}</option>
+                </template>
+            </select>
+        
+            <label class="modal__text" for="descompte">Té descompte?(Dia de l'espectador, dates especials...)</label>
+            <select id="descompte" v-model="seleccioDescompte">
+                <template v-for="element in descompteEspectador">
+                    <option :value="element.valor">{{element.mostra}}</option>
+                </template>
+            </select>
+        
+            <button @click="guardarSessio()">Guardar Sessió</button>
 
-    <label for="hora">Hora:</label>
-    <select id="hora" v-model="seleccioHora">
-        <template v-for="element in hora">
-            <option :value="element">{{element}}</option>
-        </template>
-    </select>
+        </div>
+        <div class="modal__tancament" @click="$emit('tancarModal')">
+            &times;
+        </div>
+    </div>
 
-    <label for="vip">És una sessio vip? </label>
-    <select id="vip" v-model="seleccioVip">
-        <template v-for="element in estatusVip">
-            <option :value="element.valor">{{element.mostra}}</option>
-        </template>
-    </select>
 
-    <label for="descompte">Té descompte?(Dia de l'espectador, dates especials...)</label>
-    <select id="descompte" v-model="seleccioDescompte">
-        <template v-for="element in descompteEspectador">
-            <option :value="element.valor">{{element.mostra}}</option>
-        </template>
-    </select>
 
-    <button @click="guardarSessio()">Guardar Sessió</button>
 </template>
 
 <script setup>
     import { useMetaStore } from "~/stores/meta";
     const storeMeta=useMetaStore();
-    
+    const emit = defineEmits(['tancarModal'])
+
+
     const {data: pelis}=useLazyFetch(`${storeMeta.mostrarBackUrl}/Pelicula`,{
         method:'GET',
         onResponse(){
@@ -77,6 +92,7 @@
             method: "POST",
             body:JSON.stringify(novaSessio)
         });
+        emit('tancarModal')
     }
 
 </script>

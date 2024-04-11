@@ -1,4 +1,6 @@
-
+.admin__mostra{
+    text-align: center;
+}
 .sala__fila{
     display: flex;
     align-items: center;
