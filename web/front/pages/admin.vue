@@ -1,6 +1,5 @@
 <template>
     <div class="admin__control">
-        <button >Esborra sessions</button>
         <button @click="activarPanell('crear')">Crear Sessió</button>
     </div>
     <div class="admin__mostra">

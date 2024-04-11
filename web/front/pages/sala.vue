@@ -34,7 +34,7 @@
     const files=10;
     const columnes=12;
    
-    const teVip=true//sessio.vip;
+    const teVip=sessio.vip!=0?true:false;
     const butaquesOcupades=[]; 
     console.log(`el log es "${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}"`);
     const {pending, data: tiquets}=await useLazyFetch(`${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}`,{
@@ -92,7 +92,7 @@
                 sessio: sessio.id,
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
-                preu: sessio.descompte_espect?preuFinal-2:preuFinal,
+                preu: sessio.descompte_espect!=0?preuFinal-2:preuFinal,
                 data_compra: `${dia.getFullYear()}-${storeSessio.formatarData(dia.getMonth()+1)}-${storeSessio.formatarData(dia.getDate())} ${storeSessio.formatarData(dia.getHours())}:${storeSessio.formatarData(dia.getMinutes())}:${storeSessio.formatarData(dia.getSeconds())}`,
                 correu:storeUsuari.mostrarCorreu
             };

@@ -1,5 +1,4 @@
-//Tindrá una sessio per defecte  i les dades de la peli corresponent 
-//(placeholder per a la join que es fa cuan entres a veure seients )
+//placeholder per a la join que es fa cuan entres a veure seients
 
 import { defineStore } from 'pinia'
 export const useSessioStore = defineStore('sessio', {
@@ -15,7 +14,7 @@ export const useSessioStore = defineStore('sessio', {
             dia: '28-03',
             hora: '16:00',
             descompte_espect: true,
-            vip: false,
+            vip: 0,
             preu_base: 6
         }
     }),

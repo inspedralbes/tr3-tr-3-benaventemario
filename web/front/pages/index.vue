@@ -1,5 +1,4 @@
 <template>
-    <compntDemo/>
     <button><NuxtLink to="/sala">Sessió d'avui</NuxtLink></button>
     <button><NuxtLink to="/sessions">Próximes sessions</NuxtLink></button>
 </template>
