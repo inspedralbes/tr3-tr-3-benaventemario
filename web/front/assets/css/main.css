@@ -11,12 +11,6 @@ a {
     text-decoration: none; /* no underline */
     cursor: pointer;
 }
-.cine{
-    /* display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center; */
-}
 header {
     background-color: #333; /* Fondo oscuro */
     padding-top: 20px;
