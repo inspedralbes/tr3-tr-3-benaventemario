@@ -48,6 +48,7 @@ export const useTiquetStore = defineStore('tiquet', {
         borrarTiquet() {
             const buit=[]
             this.tiquet=buit;
+            this.tiquet.preuFinal=0;
         }
 
     }
