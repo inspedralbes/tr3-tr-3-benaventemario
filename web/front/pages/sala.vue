@@ -11,17 +11,23 @@
 
     <div v-else>
         <div class="sala">
-            <div class="sala__fila" v-for="fil in files" :key="fil">
-                <span v-for="col in columnes">
-                    <FitxaButaca :butaca="actualitzarFitxa(fil, col)" />
-                </span>
+            <div class="sala__pati">
+                <div class="sala__fila" v-for="fil in files" :key="fil">
+                    <span v-for="col in columnes">
+                        <FitxaButaca :butaca="actualitzarFitxa(fil, col)" @canviPreu="canviarPreu()"/>
+                    </span>
+                </div>
             </div>
-            <button @click="imprimirEntrades()" class="sala__btn">COMPRAR</button>
+            <div class="sala__info">
+                <p>Total: {{total}}€</p>
+                <button @click="imprimirEntrades()" class="sala__btn btn">COMPRAR</button>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+    import { ref } from 'vue';
     import { useMetaStore } from "~/stores/meta";
     import { useTiquetStore } from "~/stores/tiquet";
     import { useUsuariStore } from "~/stores/usuari";
@@ -33,7 +39,12 @@
     const sessio=storeSessio.mostrarSessio;
     const files=10;
     const columnes=12;
-   
+    const total=ref(0);
+    
+    function canviarPreu(){
+        total.value=storeTiquet.mostrarTotal
+    }
+
     const teVip=sessio.vip!=0?true:false;
     const butaquesOcupades=[]; 
     console.log(`el log es "${storeMeta.mostrarBackUrl}/Entrada?filter=id_sessio,eq,${sessio.id}"`);
@@ -78,6 +89,8 @@
         return false
     }
 
+
+
     function imprimirEntrades() {
         const entrades=[];
         console.log('Imprimiendo entrada...');
@@ -87,12 +100,11 @@
         console.log(entradesPinia);
         for (let i = 0; i <entradesPinia.seients.length ; i++) {
             const seient = entradesPinia.seients[i];
-            const preuFinal=(seient.tipus!="estandard"? entradesPinia.preuSessio+2 : entradesPinia.preuSessio)
             const entrada ={
                 sessio: sessio.id,
                 id_butaca: seient.id,
                 tipus_butaca: seient.tipus,
-                preu: sessio.descompte_espect!=0?preuFinal-2:preuFinal,
+                preu: seient.preu,
                 data_compra: `${dia.getFullYear()}-${storeSessio.formatarData(dia.getMonth()+1)}-${storeSessio.formatarData(dia.getDate())} ${storeSessio.formatarData(dia.getHours())}:${storeSessio.formatarData(dia.getMinutes())}:${storeSessio.formatarData(dia.getSeconds())}`,
                 correu:storeUsuari.mostrarCorreu
             };
@@ -101,8 +113,13 @@
         }
         $fetch(`${storeMeta.mostrarBackUrl}/Entrada`, {
             method: "POST",
-            body:JSON.stringify(entrades)
+            body:JSON.stringify(entrades),
+            onResponse(){
+                storeTiquet.borrarTiquet
+                navigateTo('/')
+            }
         });
+
         //     sintaxis de fetch de enviament(abajo)
         // 
 
@@ -124,5 +141,5 @@
 
 </script>
 
-<style lang="scss" scoped>
+<style>
 </style>

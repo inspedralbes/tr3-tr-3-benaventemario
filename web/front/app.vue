@@ -7,9 +7,11 @@
                 <NuxtLink to="/">Inici</NuxtLink>
             </div>
             <div class=menu__dreta>
-                <NuxtLink v-if="(storeUsuari.comprovarAdmin)!=false" to="/admin">Admin</NuxtLink>
-                <NuxtLink @click="mostrarLogin=true">Registre</NuxtLink>
-                <span v-if="storeUsuari.mostrarCorreu!=''"> {{ storeUsuari.mostrarCorreu }}</span>
+                <div class=menu__dreta_registre>
+                    <NuxtLink v-if="(storeUsuari.comprovarAdmin)!=false" to="/admin">Admin</NuxtLink>
+                    <NuxtLink @click="mostrarLogin=true">{{((storeUsuari.comprovarAdmin)!=false)? 'Canviar': 'Registre'}}</NuxtLink>
+                </div>
+                <span v-if="storeUsuari.mostrarCorreu!=''"> {{ storeUsuari.mostrarCorreu.split("@")[0] }}</span>
             </div>
         </nav>
     </header>
@@ -17,7 +19,7 @@
     <NuxtPage />
 
     <footer>
-          <p>&copy; 2024 CineXYZ. Tots els drets reservats.</p>
+          <p>&copy; 2024 CINEMAR. Tots els drets reservats.</p>
       </footer>
   </div>
 </template>

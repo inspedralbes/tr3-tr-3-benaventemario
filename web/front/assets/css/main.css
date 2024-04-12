@@ -75,8 +75,19 @@ footer{
 .menu__dreta{
     text-align: right;
     margin-right: 1vw;
+    display: flex;
+    flex-flow: column;
+    align-items: end;
+    gap: 0.9vh;
+    span{
+        color: #f5daff;
+        width: min-content;
+    }
 }
-
+.menu__dreta_registre{
+    display: flex;
+    gap: 2.7vw;
+}
 
 
 .inici__cos{
@@ -88,19 +99,50 @@ footer{
 }
 
 /* Estils de la sala de butaques */
+.sala{
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+}
 .sala__fila{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+.sala__info{
+    text-align:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    p{
+        margin-bottom: 0;
+    };
 
+}
+.sala__btn{
+    padding: 5px 10px;
+    margin-top: 8px;
+}
+
+@media (min-width: 874px) {
+    .sala{
+        gap: 10%;
+    }
+}
+@media (min-width: 990px) {
+    .sala__info{
+        gap: 12vh;
+    }
+}
 .sala__butaca{
     width: 8vw;
     height: 8vw;
     min-height: 13px;
     min-width: 13px;
-    max-height: 38px;
-    max-width: 38px
+    max-height: 64px;
+    max-width: 64px;
 }
 
 .sala__butaca_ocupada{

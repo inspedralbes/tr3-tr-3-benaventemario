@@ -9,6 +9,8 @@
 <script setup>
     import { useTiquetStore } from "~/stores/tiquet";
     const storeTiquet=useTiquetStore();
+
+    const emit = defineEmits(['canviPreu'])
     
     const {butaca}=defineProps(['butaca'])
     
@@ -47,6 +49,7 @@
             }
             estat.value = definirEstat();
             console.log(butaca.seleccionada);
+            emit('canviPreu')
         }
     }
 </script>
