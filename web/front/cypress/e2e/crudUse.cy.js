@@ -1,5 +1,5 @@
 describe("Test d'administració", () => {
-  it('Inicia sessió al transversal 3 i llegeix que el username és el correcte', () => {
+  it('Inicia sessió al transversal 3, crea una sessió i la revisa', () => {
     cy.visit('https://tr3marbenalc.daw.inspedralbes.cat/')
     cy.get('.menu__dreta_registre').click()
     cy.get('.modal__campCorreu').type('a21marbenalc@inspedralbes.cat')
@@ -12,10 +12,17 @@ describe("Test d'administració", () => {
     cy.get('#hora').select(2)
     cy.get('#vip').select(1)
     cy.get('#descompte').select(1)
-    cy.get(".adminTaula table")
+    cy.contains("Guardar Sessió").click()
+    cy.get('.admin__taula')
     .find("tr")
     .then((row) => {
-      cy.log(row.length);
+      const nextLength=row.length+1;
+      cy.reload()
+      cy.get('.admin__taula')
+        .find("tr")
+        .then((row) => {
+          expect(row).to.have.length(nextLength)
+        });
     });
   })
 })
